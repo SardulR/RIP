@@ -108,8 +108,14 @@ border-radius: 5px;
     display: flex;
     justify-content: center;
 }
-.resend_otp p{
+.btn_resend{
     border-bottom: 1px solid #ffffff91;
+    background: none;
+    color: white;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.553);
+    cursor: pointer;
+    margin-top: 15px;
 }
 
 .otp_heading{
@@ -146,7 +152,7 @@ border-radius: 5px;
     border: none;
 
 }
-@media (max-width: 766px) {
+@media (max-width: 800px) {
     .bottom{
         display: block;
     }
@@ -166,14 +172,14 @@ border-radius: 5px;
         display: block;
     }
 }
-@media (max-width: 766px) {
+/* @media (max-width: 766px) {
     .registration_form {
         width: 70%;
         max-width: 80% !important;
         margin: 0 auto;
         margin-top: -4rem !important;
     }
-}
+} */
 
 @media (max-width: 499px) {
     .otp_input_group {
