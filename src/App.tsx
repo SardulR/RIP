@@ -1,14 +1,17 @@
-import Registration from './components/Registration';
-import { ToastContainer } from 'react-toastify'; // Keep this if you'll be using toast notifications
+
+import Registration from './conponents/Registration'
+
 import 'react-toastify/dist/ReactToastify.css';
+
+
 
 function App() {
   return (
     <>
-      <Registration />
-      <ToastContainer />  {/* Add this if you plan to show toast notifications */}
+      <Registration/>
+  
     </>
-  );
+  )
 }
 
-export default App;
+export default App

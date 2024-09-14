@@ -12,8 +12,8 @@ const siteKey = '6LcZhjYqAAAAAGYKhqjBFDqYtbQXWP7Gh3ddI1cr';
 
 function Registration() {
   const [form, setForm] = useState(true);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [otpcaptchaToken, setotpCaptchaToken] = useState<string | null>(null);
+  // const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  // const [otpcaptchaToken, setotpCaptchaToken] = useState<string | null>(null);
   const [email, setEmail] = useState<string>(''); // State to store the email
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
   const recaptchaRefotp = useRef<ReCAPTCHA | null>(null);
@@ -40,8 +40,8 @@ function Registration() {
 
   // Handle reCAPTCHA token
   const handleRecaptcha = (token: string | null) => {
-    console.log('reCAPTCHA token:', token);
-    setCaptchaToken(token);
+    // console.log('reCAPTCHA token:');
+    // setCaptchaToken(token);
     // Proceed to handle form submission only if token is not null
     if (token) {
       handleFormSubmit(token);
@@ -59,11 +59,11 @@ function Registration() {
     } // reCAPTCHA and generates a token
   };
 
-  // Handle form submission after reCAPTCHA verification
+ 
   const handleFormSubmit = async (token: string) => {
     const emailInput = (document.getElementById("college_email") as HTMLInputElement).value;
-    setEmail(emailInput); // Update email state
-    console.log('Submitting form with token:', token);
+    setEmail(emailInput); 
+    console.log('Submitting form with token:');
 
     try {
       const response = await fetch('http://13.126.250.226:8000/register/', {
@@ -94,14 +94,13 @@ function Registration() {
         });
     
     }
-    setForm(false);
   };
   // end of calling register
 
   const handleRecaptchaotpResend = (token_resend: string | null) => {
-    console.log('reCAPTCHA token:', token_resend);
-    setotpCaptchaToken(token_resend);
-   
+    // console.log('reCAPTCHA token:');
+    // setotpCaptchaToken(token_resend);
+    // Proceed to handle form submission only if token is not null
     if (token_resend) {
       handleOtpResend(email, token_resend);
     } else {
@@ -109,16 +108,16 @@ function Registration() {
     }
   };
 
- 
+  // Manually trigger reCAPTCHA on form submit
   const triggerRecaptchaotpResend = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Triggering reCAPTCHA...');
-    recaptchaRefotpResend.current?.execute(); 
+    recaptchaRefotpResend.current?.execute(); // reCAPTCHA and generates a token
   };
 
-
+  //handle otp resend 
   const handleOtpResend = async (email: string, token_resend: string) => {
-    console.log('Submitting form with email:', token_resend);
+    console.log('Submitting form with email:');
 
     try {
       const response = await fetch('http://13.126.250.226:8000/register/', {
@@ -151,21 +150,23 @@ function Registration() {
 
 
 
+  // end handle resend 
 
+  // State to store the OTP input values, initialized as an array of 6 empty strings
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
 
-
+  // Handle input otp change
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const value = e.target.value;
-    if (/^[a-zA-Z0-9]*$/.test(value)) {
+    if (/^[a-zA-Z0-9]*$/.test(value)) { // Only allow numbers
       const newOtp = [...otp];
-      newOtp[index] = value; 
+      newOtp[index] = value; // Update the OTP value at the given index
       setOtp(newOtp);
 
-      
+      // Move to the next input if a number is entered
       if (value && index < 5) {
         const nextInput = document.getElementById(`otp-input-${index + 1}`);
         nextInput?.focus();
@@ -175,9 +176,9 @@ function Registration() {
 
   // Handle reCAPTCHA token
   const handleRecaptchaotp = (token_email: string | null) => {
-    console.log('reCAPTCHA token:', token_email);
-    setotpCaptchaToken(token_email);
-  
+    // console.log('reCAPTCHA token:');
+    // setotpCaptchaToken(token_email);
+    // Proceed to handle form submission only if token is not null
     if (token_email) {
       handleOtpSubmit(token_email);
     } else {
@@ -185,13 +186,13 @@ function Registration() {
     }
   };
 
-  
+  // Manually trigger reCAPTCHA on form submit
   const triggerRecaptchaotp = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Triggering reCAPTCHA...');
-    recaptchaRefotp.current?.execute(); 
+    recaptchaRefotp.current?.execute(); // reCAPTCHA and generates a token
   };
- 
+  // calling verify email api
 
   const handleOtpSubmit = async (token_email: string) => {
     const otpValue = otp.join("");
@@ -285,7 +286,7 @@ function Registration() {
 
           {form ? (
             <div className={`${styles.registration_form}`}>
-              <form onSubmit={triggerRecaptcha}>
+              <form onSubmit={triggerRecaptcha} className='reg_form'>
                 <div className={`${styles.form_group}`}>
                   <label htmlFor="name">Name</label>
                   <input type="text" id="name" value={name}
@@ -354,7 +355,7 @@ function Registration() {
                   ref={recaptchaRef}
                   sitekey={siteKey}
                   size="invisible"
-                  onChange={handleRecaptcha} 
+                  onChange={handleRecaptcha} // reCAPTCHA triggers this on success
                 />
                 <button className={`${styles.btn_submit}`} type="submit" onClick={() => handleFormSubmit}>Verify</button>
               </form>
@@ -385,7 +386,7 @@ function Registration() {
                   ref={recaptchaRefotp}
                   sitekey={siteKey}
                   size="invisible"
-                  onChange={handleRecaptchaotp} 
+                  onChange={handleRecaptchaotp} // reCAPTCHA triggers this on success
                 />
                 <button className={`${styles.btn_submit}`} type='submit' onClick={() => handleOtpSubmit}>Submit</button>
 
@@ -397,7 +398,7 @@ function Registration() {
                     ref={recaptchaRefotpResend}
                     sitekey={siteKey}
                     size="invisible"
-                    onChange={handleRecaptchaotpResend} 
+                    onChange={handleRecaptchaotpResend} // reCAPTCHA triggers this on success
                   />
 
                  
