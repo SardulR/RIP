@@ -59,10 +59,10 @@ function Registration() {
     } // reCAPTCHA and generates a token
   };
 
- 
+  // Handle form submission after reCAPTCHA verification
   const handleFormSubmit = async (token: string) => {
     const emailInput = (document.getElementById("college_email") as HTMLInputElement).value;
-    setEmail(emailInput); 
+    setEmail(emailInput); // Update email state
     console.log('Submitting form with token:');
 
     try {
