@@ -421,7 +421,7 @@ function Registration() {
           )}
 
           <div className={`${styles.inquiry}`}>
-            <p>For Inquiry +91-9811021619 +91-9800000000</p>
+            <p>For Inquiry +91-9654933993 +91-9811021619</p>
           </div>
         </div>
       </div>
